@@ -1,17 +1,23 @@
 defmodule FubaWeb.FubaLive do
   use FubaWeb, :live_view
 
-  alias Fuba.{Coelhinha, Cuidado, Humor}
+  alias Fuba.{Cuidado, Humor}
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, fuba: %Coelhinha{})}
+    if connected?(socket), do: Phoenix.PubSub.subscribe(Fuba.PubSub, "fuba")
+    {:ok, assign(socket, fuba: Fuba.Convivencia.espiar())}
   end
 
   @impl true
   def handle_event("cuidar", %{"acao" => acao}, socket) do
-    acao = String.to_existing_atom(acao)
-    {:noreply, update(socket, :fuba, &Cuidado.aplicar(&1, acao))}
+    Fuba.Convivencia.cuidar(String.to_existing_atom(acao))
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:fuba_mudou, fuba}, socket) do
+    {:noreply, assign(socket, fuba: fuba)}
   end
 
   @impl true

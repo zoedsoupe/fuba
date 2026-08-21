@@ -41,4 +41,11 @@ defmodule Fuba.CuidadoTest do
       assert Cuidado.limita(3) == 3
     end
   end
+
+  describe "tempo_passa/1" do
+    test "nunca negativa" do
+      fuba = %Coelhinha{biscoito: 0, cafeina: 0, carinho: 0, energia: 0}
+      assert Cuidado.tempo_passa(fuba) == fuba
+    end
+  end
 end

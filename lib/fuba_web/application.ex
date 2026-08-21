@@ -10,6 +10,7 @@ defmodule FubaWeb.Application do
     children = [
       FubaWeb.Telemetry,
       {Phoenix.PubSub, name: Fuba.PubSub},
+      Fuba.Convivencia,
       # Start to serve requests, typically the last entry
       FubaWeb.Endpoint
     ]
