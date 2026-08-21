@@ -1,11 +1,11 @@
 defmodule FubaWeb.Plug do
-  import Plug.Conn
+  use Plug.Builder
 
-  def init(opts), do: opts
+  plug Plug.Static, at: "/", from: :fuba
 
-  def call(conn, _opts) do
-    conn
-    |> put_resp_content_type("text/plain; charset=utf-8")
-    |> send_resp(200, "a Fubá tá te ouvindo")
+  plug :nao_achei
+
+  def nao_achei(conn, _opts) do
+    send_resp(conn, 404, "nada aqui, uai")
   end
 end
