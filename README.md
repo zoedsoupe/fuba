@@ -1,19 +1,18 @@
-# fubá
+# FubaWeb
 
-uma coelhinha virtual em elixir. tamagotchi de terminal promovido a web, camada por camada.
+To start your Phoenix server:
 
-regra de ouro: **coração limpo, casquinha na borda**. a lógica mora em módulos puros e testados. a web é só casquinha, intercambiável, nunca toca o coração.
+* Run `mix setup` to install and setup dependencies
+* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
-quatro medidores de 0 a 5: `biscoito`, `cafeina`, `carinho`, `energia`. quatro ações: dar biscoito, dar café, fazer cafuné, dar espaço. humor calculado dos medidores, nunca guardado. desregulada, só espaço ajuda.
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-```sh
-mix test
-iex -S mix
-```
+Ready to run in production? Please [check our deployment guides](https://phoenix.hexdocs.pm/deployment.html).
 
-```elixir
-iex> fuba = %Fuba.Coelhinha{}
-iex> fuba = Fuba.Cuidado.dar_biscoito(fuba)
-iex> Fuba.Cuidado.humor(fuba)
-:feliz
-```
+## Learn more
+
+* Official website: https://www.phoenixframework.org/
+* Guides: https://phoenix.hexdocs.pm/overview.html
+* Docs: https://phoenix.hexdocs.pm
+* Forum: https://elixirforum.com/c/phoenix-forum
+* Source: https://github.com/phoenixframework/phoenix
