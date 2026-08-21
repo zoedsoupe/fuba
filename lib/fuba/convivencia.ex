@@ -15,9 +15,9 @@ defmodule Fuba.Convivencia do
   def cuidar(acao), do: GenServer.call(__MODULE__, {:cuidar, acao})
 
   @impl true
-  def init(fuba) do
+  def init(_fuba) do
     :timer.send_interval(@intervalo, :tempo_passa)
-    {:ok, fuba}
+    {:ok, Fuba.Soninho.acordar()}
   end
 
   @impl true
@@ -25,6 +25,7 @@ defmodule Fuba.Convivencia do
 
   def handle_call({:cuidar, acao}, _de, fuba) do
     nova = Cuidado.aplicar(fuba, acao)
+    Fuba.Soninho.salvar(nova)
     avisar(nova)
     {:reply, nova, nova}
   end
@@ -32,6 +33,7 @@ defmodule Fuba.Convivencia do
   @impl true
   def handle_info(:tempo_passa, fuba) do
     nova = Cuidado.tempo_passa(fuba)
+    Fuba.Soninho.salvar(nova)
     avisar(nova)
     {:noreply, nova}
   end

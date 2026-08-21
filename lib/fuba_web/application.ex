@@ -9,6 +9,7 @@ defmodule FubaWeb.Application do
   def start(_type, _args) do
     children = [
       FubaWeb.Telemetry,
+      Fuba.Repo,
       {Phoenix.PubSub, name: Fuba.PubSub},
       Fuba.Convivencia,
       # Start to serve requests, typically the last entry

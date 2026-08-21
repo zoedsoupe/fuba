@@ -8,7 +8,10 @@
 import Config
 
 config :fuba_web,
+  ecto_repos: [Fuba.Repo],
   generators: [timestamp_type: :utc_datetime]
+
+config :fuba_web, Fuba.Repo, database: "fuba.db"
 
 # Configure the endpoint
 config :fuba_web, FubaWeb.Endpoint,
