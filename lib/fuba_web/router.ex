@@ -12,6 +12,17 @@ defmodule FubaWeb.Router do
     |> send_resp(200, corpo)
   end
 
+  post "/cuidar" do
+    {:ok, corpo, conn} = Plug.Conn.read_body(conn)
+    %{"acao" => acao} = Plug.Conn.Query.decode(corpo)
+
+    Fuba.Guarda.atualizar(&Fuba.Cuidado.aplicar(&1, String.to_existing_atom(acao)))
+
+    conn
+    |> put_resp_header("location", "/")
+    |> send_resp(303, "")
+  end
+
   match _ do
     send_resp(conn, 404, "nada aqui, uai")
   end

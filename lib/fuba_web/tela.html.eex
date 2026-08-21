@@ -110,10 +110,18 @@
     </div>
 
     <div class="acoes">
-      <button>🍪 biscoito</button>
-      <button>☕ café</button>
-      <button>🫶 cafuné</button>
-      <button>🍃 espaço</button>
+      <form method="post" action="/cuidar">
+        <button name="acao" value="biscoito">🍪 biscoito</button>
+      </form>
+      <form method="post" action="/cuidar">
+        <button name="acao" value="cafe">☕ café</button>
+      </form>
+      <form method="post" action="/cuidar">
+        <button name="acao" value="cafune">🫶 cafuné</button>
+      </form>
+      <form method="post" action="/cuidar">
+        <button name="acao" value="espaco">🍃 espaço</button>
+      </form>
     </div>
   </main>
 </body>
