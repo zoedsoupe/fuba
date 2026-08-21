@@ -1,9 +1,10 @@
+<% humor = Fuba.Cuidado.humor(@fuba) %>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fubá</title>
+  <title><%= @fuba.nome %></title>
   <style>
     :root {
       --fundo: #1a1023;
@@ -85,15 +86,27 @@
 </head>
 <body>
   <main>
-    <p class="carinha">( ￣^￣)</p>
-    <h1>Fubá</h1>
-    <p class="humor">tá chatinha… cadê o café?</p>
+    <p class="carinha"><%= Fuba.Humor.carinha(humor) %></p>
+    <h1><%= @fuba.nome %></h1>
+    <p class="humor"><%= FubaWeb.Tela.frase(humor) %></p>
 
     <div class="medidores">
-      <div class="medidor"><span>biscoito</span><span class="barra">■■■□□</span></div>
-      <div class="medidor"><span>cafeína</span><span class="barra baixa">■□□□□</span></div>
-      <div class="medidor"><span>carinho</span><span class="barra">■■□□□</span></div>
-      <div class="medidor"><span>energia</span><span class="barra">■■■■■</span></div>
+      <div class="medidor">
+        <span>biscoito</span>
+        <span class="barra <%= if @fuba.biscoito <= 1, do: "baixa" %>"><%= FubaWeb.Tela.barrinha(@fuba.biscoito) %></span>
+      </div>
+      <div class="medidor">
+        <span>cafeína</span>
+        <span class="barra <%= if @fuba.cafeina <= 1, do: "baixa" %>"><%= FubaWeb.Tela.barrinha(@fuba.cafeina) %></span>
+      </div>
+      <div class="medidor">
+        <span>carinho</span>
+        <span class="barra <%= if @fuba.carinho <= 1, do: "baixa" %>"><%= FubaWeb.Tela.barrinha(@fuba.carinho) %></span>
+      </div>
+      <div class="medidor">
+        <span>energia</span>
+        <span class="barra <%= if @fuba.energia <= 1, do: "baixa" %>"><%= FubaWeb.Tela.barrinha(@fuba.energia) %></span>
+      </div>
     </div>
 
     <div class="acoes">
