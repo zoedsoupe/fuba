@@ -6,13 +6,27 @@ defmodule FubaWeb.FubaLive do
   @impl true
   def mount(_params, _session, socket) do
     if connected?(socket), do: Phoenix.PubSub.subscribe(Fuba.PubSub, "fuba")
-    {:ok, assign(socket, fuba: Fuba.Convivencia.espiar())}
+    {:ok, assign(socket, fuba: Fuba.Convivencia.espiar(), clima: nil)}
   end
 
   @impl true
   def handle_event("cuidar", %{"acao" => acao}, socket) do
     Fuba.Convivencia.cuidar(String.to_existing_atom(acao))
     {:noreply, socket}
+  end
+
+  def handle_event("clima", _params, socket) do
+    mensagem =
+      case Fuba.Clima.como_ta_la_fora() do
+        {:ok, :sol} -> "solzão em Manhuaçu ☀️"
+        {:ok, :nublado} -> "tempo fechado…"
+        {:ok, :chuva} -> "chuva! ela pede cafuné 🫶"
+        {:ok, :tempestade} -> "tempestade, segura ela!"
+        {:ok, :tempo_doido} -> "tempo doido lá fora"
+        {:error, :sem_sinal} -> "uai, sem sinal"
+      end
+
+    {:noreply, assign(socket, clima: mensagem)}
   end
 
   @impl true
@@ -53,6 +67,9 @@ defmodule FubaWeb.FubaLive do
         <button phx-click="cuidar" phx-value-acao="cafune">🫶 cafuné</button>
         <button phx-click="cuidar" phx-value-acao="espaco">🍃 espaço</button>
       </div>
+
+      <p :if={@clima} class="humor">{@clima}</p>
+      <button phx-click="clima">🌧️ lá fora</button>
     </main>
     """
   end

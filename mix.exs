@@ -51,7 +51,8 @@ defmodule FubaWeb.MixProject do
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
       {:ecto_sql, "~> 3.12"},
-      {:ecto_sqlite3, "~> 0.19"}
+      {:ecto_sqlite3, "~> 0.19"},
+      {:req, "~> 0.5"}
     ]
   end
 
