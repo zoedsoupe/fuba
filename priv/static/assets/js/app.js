@@ -1,19 +1,14 @@
-// For Phoenix.HTML support, including form and button helpers
-// copy the following scripts into your javascript bundle:
-// * deps/phoenix_html/priv/static/phoenix_html.js
+// Sem bundler aqui: phoenix.js e phoenix_live_view.js são copiados
+// dos deps e expõem os globais `Phoenix` e `LiveView`.
+const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 
-// For Phoenix.Channels support, copy the following scripts
-// into your javascript bundle:
-// * deps/phoenix/priv/static/phoenix.js
+const liveSocket = new LiveView.LiveSocket("/live", Phoenix.Socket, {
+  params: {_csrf_token: csrfToken},
+})
 
-// For Phoenix.LiveView support, copy the following scripts
-// into your javascript bundle:
-// * deps/phoenix_live_view/priv/static/phoenix_live_view.js
+liveSocket.connect()
 
-// Handle flash close
-// (you can safely remove this if you don't use the default flash component)
-document.querySelectorAll("[role=alert][data-flash]").forEach((el) => {
-  el.addEventListener("click", () => {
-    el.setAttribute("hidden", "");
-  });
-});
+// expõe no console do navegador pra brincar:
+// >> liveSocket.enableDebug()
+// >> liveSocket.enableLatencySim(1000)
+window.liveSocket = liveSocket
